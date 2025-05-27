@@ -11,5 +11,8 @@
     "server": "cd backend && npm run dev",
     "client": "cd frontend && npm start"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
