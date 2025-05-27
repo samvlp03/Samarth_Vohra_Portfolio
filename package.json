@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "server": "cd backend && npm run dev",
-    "client": "cd frontend && npm start"
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install"
   },
   "keywords": [],
   "dependencies": {
