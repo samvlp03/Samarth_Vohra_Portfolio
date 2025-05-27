@@ -17,11 +17,21 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/files/cv', express.static(path.join(__dirname, 'files/cv')));
 
 // Routes
+console.log('Registering route: /api/about');
 app.use('/api/about', require('./routes/about'));
+console.log('Registering route: /api/projects');
 app.use('/api/projects', require('./routes/projects'));
+console.log('Registering route: /api/contact');
 app.use('/api/contact', require('./routes/contact'));
+console.log('Registering route: /api/files');
 app.use('/api/files', require('./routes/files'));
 
+// Serve static React frontend after API routes
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
+});
 
 // MongoDB connection + server start
 mongoose.connect(process.env.MONGO_URI, {
@@ -34,9 +44,4 @@ mongoose.connect(process.env.MONGO_URI, {
   );
 }).catch((err) => console.error('MongoDB connection error:', err));
 
-// Serve static React frontend after API routes
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
-});
